@@ -2,22 +2,16 @@ use std::fmt::Debug;
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Eq, PartialEq, Ord, PartialOrd)]
+#[derive(Serialize, Deserialize, Eq, PartialEq, Ord, PartialOrd, Debug)]
 pub struct Version {
     major: u32,
     minor: u32,
     patch: u32,
 }
 
-impl Debug for Version {
+impl std::fmt::Display for Version {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}.{}.{}", self.major, self.minor, self.patch)
-    }
-}
-
-impl std::string::ToString for Version {
-    fn to_string(&self) -> String {
-        return format!("{}.{}.{}", self.major, self.minor, self.patch);
     }
 }
 
@@ -46,7 +40,7 @@ impl std::str::FromStr for Version {
             return Err(ParseError::InvalidFormat(parts.len()));
         }
 
-        return Ok(Version {
+        Ok(Version {
             major: parts[0]
                 .parse::<u32>()
                 .map_err(ParseError::NumberParseError)?,
@@ -56,17 +50,17 @@ impl std::str::FromStr for Version {
             patch: parts[2]
                 .parse::<u32>()
                 .map_err(ParseError::NumberParseError)?,
-        });
+        })
     }
 }
 
 impl Version {
     pub fn new(major: u32, minor: u32, patch: u32) -> Version {
-        return Version {
+        Version {
             major,
             minor,
             patch,
-        };
+        }
     }
 }
 
