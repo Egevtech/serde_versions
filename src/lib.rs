@@ -27,6 +27,15 @@ pub enum ParseError {
     NumberParseError(std::num::ParseIntError),
 }
 
+impl std::fmt::Display for ParseError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ParseError::InvalidFormat(given) => write!(f, "Expected 3 parts, got {}", given),
+            ParseError::NumberParseError(err) => write!(f, "Error parsing number: {}", err),
+        }
+    }
+}
+
 impl std::str::FromStr for Version {
     type Err = ParseError;
 
@@ -65,7 +74,7 @@ macro_rules! ver {
     ($version:expr) => {
         match <Version as std::str::FromStr>::from_str(stringify!($version)) {
             Ok(v) => v,
-            Err(e) => panic!("Invalid version string in macro: {:?}", e),
+            Err(e) => panic!("Invalid version string in macro: {}", e),
         }
     };
 }
