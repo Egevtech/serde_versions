@@ -61,11 +61,21 @@ impl Version {
     }
 }
 
+macro_rules! ver {
+    ($version:expr) => {
+        match <Version as std::str::FromStr>::from_str(stringify!($version)) {
+            Ok(v) => v,
+            Err(e) => panic!("Invalid version string in macro: {:?}", e),
+        }
+    };
+}
+
 #[cfg(test)]
 mod tests {
-    use super::Version;
+    use super::*;
     use serde::Deserialize;
     use serde_json;
+    use std::str::FromStr;
 
     #[derive(Deserialize, Debug, PartialEq)]
     struct Data {
@@ -115,5 +125,38 @@ mod tests {
         assert!(ver2 < ver3);
         assert!(ver3 > ver4);
         assert!(ver1 > ver4);
+    }
+
+    #[test]
+    fn eq_test() {
+        let ver1: Version = Version::new(1, 0, 0);
+        let ver2: Version = Version::new(1, 0, 0);
+        let ver3: Version = Version::new(1, 2, 3);
+
+        assert_eq!(ver1, ver2);
+        assert_ne!(ver2, ver3);
+    }
+
+    #[test]
+    fn to_string_test() {
+        let ver: Version = Version::new(1, 4, 5);
+
+        assert_eq!(ver.to_string(), "1.4.5");
+    }
+
+    #[test]
+    fn from_str_test() {
+        let ver: Version = Version::new(8, 7, 5);
+        let str = "8.7.5";
+
+        assert_eq!(Version::from_str(str).unwrap(), ver);
+    }
+
+    #[test]
+    fn macro_test() {
+        let ver: Version = Version::new(5, 4, 9);
+        let macro_ver: Version = ver!(5.4.9);
+
+        assert_eq!(ver, macro_ver);
     }
 }
