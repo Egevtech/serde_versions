@@ -30,6 +30,8 @@ impl std::fmt::Display for ParseError {
     }
 }
 
+impl std::error::Error for ParseError {}
+
 impl std::str::FromStr for Version {
     type Err = ParseError;
 
