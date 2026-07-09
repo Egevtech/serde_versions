@@ -68,8 +68,8 @@ impl Version {
 
 #[macro_export]
 macro_rules! ver {
-    ($version:expr) => {
-        match <Version as std::str::FromStr>::from_str(stringify!($version)) {
+    ($($version:tt)*) => {
+        match <Version as std::str::FromStr>::from_str(stringify!($($version)*)) {
             Ok(v) => v,
             Err(e) => panic!("Invalid version string in macro: {}", e),
         }
