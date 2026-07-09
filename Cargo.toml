@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 description = "Library that brings (de-)serializable Version struct"
 repository = "https://github.com/egevtech/serde_versions"
-license = "BSD-3"
+license = "BSD-3-Clause"
 
 [dependencies]
 serde = { version = "1.0.228", features = ["derive"] }
