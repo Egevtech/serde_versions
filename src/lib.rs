@@ -15,6 +15,42 @@ impl Debug for Version {
     }
 }
 
+impl std::string::ToString for Version {
+    fn to_string(&self) -> String {
+        return format!("{}.{}.{}", self.major, self.minor, self.patch);
+    }
+}
+
+#[derive(Debug, PartialEq, Eq)]
+pub enum ParseError {
+    InvalidFormat(usize),
+    NumberParseError(std::num::ParseIntError),
+}
+
+impl std::str::FromStr for Version {
+    type Err = ParseError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts: Vec<&str> = s.split('.').collect();
+
+        if parts.len() != 3 {
+            return Err(ParseError::InvalidFormat(parts.len()));
+        }
+
+        return Ok(Version {
+            major: parts[0]
+                .parse::<u32>()
+                .map_err(ParseError::NumberParseError)?,
+            minor: parts[1]
+                .parse::<u32>()
+                .map_err(ParseError::NumberParseError)?,
+            patch: parts[2]
+                .parse::<u32>()
+                .map_err(ParseError::NumberParseError)?,
+        });
+    }
+}
+
 impl Version {
     pub fn new(major: u32, minor: u32, patch: u32) -> Version {
         return Version {
@@ -69,11 +105,11 @@ mod tests {
         let ver4: Version = Version::new(0, 0, 0);
 
         /*
-         * ver1 < ver2 
-         * ver2 < ver3 
+         * ver1 < ver2
+         * ver2 < ver3
          * ver3 > ver4
          * ver1 > ver4
-         */ 
+         */
 
         assert!(ver1 < ver2);
         assert!(ver2 < ver3);
