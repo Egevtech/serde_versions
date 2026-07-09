@@ -2,6 +2,9 @@
 name = "serde_versions"
 version = "0.1.0"
 edition = "2024"
+description = "Library that brings (de-)serializable Version struct"
+repository = "https://github.com/egevtech/serde_versions"
+license = "BSD-3"
 
 [dependencies]
 serde = { version = "1.0.228", features = ["derive"] }
