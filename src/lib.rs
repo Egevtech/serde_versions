@@ -2,7 +2,7 @@ use std::fmt::Debug;
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Eq, PartialEq, Ord, PartialOrd, Debug)]
+#[derive(Serialize, Deserialize, Eq, PartialEq, Ord, PartialOrd, Debug, Clone)]
 pub struct Version {
     major: u32,
     minor: u32,
