@@ -80,7 +80,6 @@ macro_rules! ver {
 mod tests {
     use super::*;
     use serde::Deserialize;
-    use serde_json;
     use std::str::FromStr;
 
     #[derive(Deserialize, Debug, PartialEq)]
