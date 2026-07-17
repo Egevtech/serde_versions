@@ -2,7 +2,7 @@
 Небольшая библиотека для хранения и (де-)сериализации структуры описывающей версии в формат serde.
 
 ## Как использовать
-```cargo add --git https://github.com/egevtech/serde_versions```
+```cargo add serde_versions```
 
 ## Пример кода
 ```rust
