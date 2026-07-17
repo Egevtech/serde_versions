@@ -39,3 +39,24 @@
         )
     }
 ```
+```rust
+let ver1 = ver!(3.5.1);
+let ver2 = ver!(6.5.6);
+
+assert!(ver1 < ver2);
+```
+```rust
+let ver1 = ver!(1.5.6);
+let ver2 = ver!(2.5.3);
+let ver3 = ver!(1.5.6);
+
+assert_eq!(ver1, ver3);
+assert_ne!(ver1, ver2);
+```
+```rust 
+let ver = ver!(7.6.5);
+let str = "7.6.5";
+
+assert_eq!(Version::from_str(str), ver);
+assert_eq!(&ver.to_string(), str);
+```
