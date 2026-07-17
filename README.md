@@ -1,6 +1,9 @@
 # serde_versions
 Небольшая библиотека для хранения и (де-)сериализации структуры описывающей версии в формат serde.
 
+![Crates.io Total Downloads](https://img.shields.io/crates/d/serde_versions)
+![Crates.io Version](https://img.shields.io/crates/v/serde_versions)
+
 ## Как использовать
 ```cargo add serde_versions```
 
